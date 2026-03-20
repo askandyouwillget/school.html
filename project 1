@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luminary — Learn Without Limits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #0e0e10;
+      --paper: #f5f1eb;
+      --cream: #ede8e0;
+      --amber: #e8a020;
+      --amber-light: #ffd27a;
+      --teal: #1a5f5a;
+      --teal-light: #2a8a82;
+      --muted: #7a7060;
+      --card-bg: #fffdf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(245,241,235,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem; font-weight: 900;
+      letter-spacing: -0.03em; color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--amber); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink); color: var(--paper) !important;
+      padding: 0.55rem 1.4rem; border-radius: 100px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--teal) !important; color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 5% 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-blob {
+      position: absolute; right: -8%; top: 10%;
+      width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
+      background: radial-gradient(ellipse at 60% 40%, var(--amber-light) 0%, var(--cream) 60%, transparent 80%);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      animation: blob-drift 10s ease-in-out infinite alternate;
+      opacity: 0.7;
+    }
+    @keyframes blob-drift {
+      from { transform: rotate(-4deg) scale(1); }
+      to   { transform: rotate(4deg) scale(1.06); }
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--amber); color: var(--ink);
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+      padding: 0.35rem 1rem; border-radius: 100px;
+      width: fit-content; margin-bottom: 1.8rem;
+      animation: fade-up 0.7s ease both;
+    }
+    .hero-tag::before { content: '✦'; font-size: 0.7rem; }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 900; line-height: 1.0;
+      letter-spacing: -0.04em;
+      max-width: 11ch;
+      animation: fade-up 0.8s 0.1s ease both;
+    }
+    .hero h1 em {
+      font-style: italic; font-weight: 300;
+      color: var(--teal);
+    }
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-size: 1.1rem; line-height: 1.7;
+      color: var(--muted); max-width: 42ch;
+      animation: fade-up 0.8s 0.2s ease both;
+    }
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fade-up 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--ink); color: var(--paper);
+      padding: 0.9rem 2.2rem; border-radius: 100px;
+      font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--teal); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--ink);
+      padding: 0.9rem 2.2rem; border-radius: 100px;
+      font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; border: 2px solid var(--ink);
+      cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--paper); }
+    .hero-stats {
+      margin-top: 5rem;
+      display: flex; gap: 3rem;
+      animation: fade-up 0.8s 0.45s ease both;
+    }
+    .stat-item h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.4rem; font-weight: 700; color: var(--ink);
+    }
+    .stat-item p { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--ink); color: var(--paper);
+      padding: 1.1rem 0; overflow: hidden;
+    }
+    .marquee-track {
+      display: flex; gap: 3rem;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-track span {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 1.1rem; white-space: nowrap;
+    }
+    .marquee-track .dot { color: var(--amber); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 5%; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem; margin-top: 4rem;
+    }
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 20px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .step-num {
+      font-family: 'Fraunces', serif;
+      font-size: 4rem; font-weight: 900; line-height: 1;
+      color: var(--cream); position: absolute; top: 1rem; right: 1.2rem;
+    }
+    .step-icon {
+      font-size: 2rem; margin-bottom: 1.2rem;
+      display: inline-block;
+    }
+    .step-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem; font-weight: 700; margin-bottom: 0.6rem;
+    }
+    .step-card p { font-size: 0.9rem; line-height: 1.65; color: var(--muted); }
+
+    /* ── COURSES ── */
+    #courses { background: var(--cream); }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .course-card {
+      background: var(--card-bg);
+      border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .course-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .course-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+    }
+    .course-body { padding: 1.4rem; }
+    .course-tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.25rem 0.7rem;
+      border-radius: 100px; display: inline-block; margin-bottom: 0.7rem;
+    }
+    .tag-science { background: #d4f0ec; color: var(--teal); }
+    .tag-math    { background: #ffecd0; color: #b35a00; }
+    .tag-arts    { background: #e8d8f5; color: #5a2a8a; }
+    .tag-tech    { background: #d4e8ff; color: #1a4a8a; }
+    .tag-lang    { background: #ffd8e0; color: #8a1a30; }
+    .tag-biz     { background: #d8f5d4; color: #1a6a20; }
+    .course-body h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .course-body p  { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem; }
+    .course-meta { display: flex; justify-content: space-between; align-items: center; }
+    .course-meta span { font-size: 0.82rem; color: var(--muted); }
+    .course-meta .enroll {
+      background: var(--ink); color: var(--paper);
+      font-size: 0.8rem; padding: 0.4rem 1rem;
+      border-radius: 100px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .course-meta .enroll:hover { background: var(--teal); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .testi-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 18px; padding: 2rem;
+      transition: transform 0.2s;
+    }
+    .testi-card:hover { transform: translateY(-3px); }
+    .stars { color: var(--amber); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .testi-card blockquote {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 1.05rem; line-height: 1.6;
+      color: var(--ink); margin-bottom: 1.3rem;
+    }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; background: var(--cream);
+    }
+    .testi-author strong { display: block; font-size: 0.9rem; }
+    .testi-author span { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--cream); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem; align-items: start;
+    }
+    .price-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 20px; padding: 2.2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .price-card:hover { transform: translateY(-4px); box-shadow: 0 18px 45px rgba(0,0,0,0.09); }
+    .price-card.featured {
+      background: var(--ink); color: var(--paper);
+      border-color: transparent;
+    }
+    .price-card.featured .muted-text { color: rgba(255,255,255,0.55); }
+    .plan-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;
+    }
+    .plan-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .plan-price {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem; font-weight: 900; line-height: 1;
+    }
+    .plan-price sup { font-size: 1.2rem; font-weight: 500; vertical-align: super; }
+    .plan-period { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.8rem; }
+    .plan-features { list-style: none; margin-bottom: 2rem; }
+    .plan-features li {
+      font-size: 0.88rem; padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex; gap: 0.5rem;
+    }
+    .price-card.featured .plan-features li { border-color: rgba(255,255,255,0.1); }
+    .plan-features li::before { content: '✓'; color: var(--amber); font-weight: 700; }
+    .btn-plan {
+      width: 100%; padding: 0.9rem;
+      border-radius: 100px; font-size: 0.92rem; font-weight: 500;
+      text-align: center; cursor: pointer; border: none;
+      text-decoration: none; display: block;
+      transition: all 0.2s;
+    }
+    .btn-plan-light { background: var(--ink); color: var(--paper); }
+    .btn-plan-light:hover { background: var(--teal); }
+    .btn-plan-dark { background: var(--amber); color: var(--ink); }
+    .btn-plan-dark:hover { background: var(--amber-light); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      margin: 0 5% 5rem;
+      background: var(--teal);
+      border-radius: 28px; padding: 4rem;
+      color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute; right: -5%; bottom: -20%;
+      width: 40%; padding-bottom: 40%;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .cta-banner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700; line-height: 1.15;
+      max-width: 16ch;
+    }
+    .cta-banner p { margin-top: 0.8rem; opacity: 0.75; font-size: 0.95rem; }
+    .btn-cta {
+      background: var(--amber); color: var(--ink);
+      padding: 1rem 2.4rem; border-radius: 100px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-cta:hover { background: var(--amber-light); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.6);
+      padding: 4rem 5% 2.5rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr repeat(3,1fr);
+      gap: 3rem; margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .footer-brand .logo { color: var(--paper); font-size: 1.5rem; }
+    .footer-brand p { margin-top: 1rem; font-size: 0.88rem; line-height: 1.65; max-width: 26ch; }
+    .footer-col h4 {
+      font-size: 0.82rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a {
+      text-decoration: none; color: rgba(255,255,255,0.6);
+      font-size: 0.88rem; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.8rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem; flex-wrap: wrap; gap: 1rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .cta-banner { padding: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Lumin<span>ary</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-tag">Now accepting students for Spring 2026</div>
+  <h1>Learn <em>boldly,</em> grow faster.</h1>
+  <p class="hero-sub">Luminary connects students with world-class tutors, live courses, and AI-powered study tools — all in one place.</p>
+  <div class="hero-actions">
+    <a href="#courses" class="btn-primary">Explore Courses →</a>
+    <a href="#how" class="btn-outline">See how it works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><h3>40k+</h3><p>Active students</p></div>
+    <div class="stat-item"><h3>98%</h3><p>Satisfaction rate</p></div>
+    <div class="stat-item"><h3>500+</h3><p>Expert tutors</p></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Mathematics</span><span class="dot">✦</span>
+    <span>Computer Science</span><span class="dot">✦</span>
+    <span>English & Writing</span><span class="dot">✦</span>
+    <span>Biology</span><span class="dot">✦</span>
+    <span>Business Studies</span><span class="dot">✦</span>
+    <span>Physics</span><span class="dot">✦</span>
+    <span>History</span><span class="dot">✦</span>
+    <span>Foreign Languages</span><span class="dot">✦</span>
+    <span>Chemistry</span><span class="dot">✦</span>
+    <span>Visual Arts</span><span class="dot">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span>Mathematics</span><span class="dot">✦</span>
+    <span>Computer Science</span><span class="dot">✦</span>
+    <span>English & Writing</span><span class="dot">✦</span>
+    <span>Biology</span><span class="dot">✦</span>
+    <span>Business Studies</span><span class="dot">✦</span>
+    <span>Physics</span><span class="dot">✦</span>
+    <span>History</span><span class="dot">✦</span>
+    <span>Foreign Languages</span><span class="dot">✦</span>
+    <span>Chemistry</span><span class="dot">✦</span>
+    <span>Visual Arts</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <p class="section-label">How it works</p>
+  <h2 class="section-title">Three steps to your breakthrough</h2>
+  <div class="how-grid">
+    <div class="step-card">
+      <span class="step-num">01</span>
+      <div class="step-icon">🎯</div>
+      <h3>Tell us your goals</h3>
+      <p>Share your subjects, skill level, and learning style. Our matching engine finds the perfect fit for you.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">02</span>
+      <div class="step-icon">📚</div>
+      <h3>Choose your path</h3>
+      <p>Pick from live tutoring sessions, self-paced courses, or a blended program — on any device, any time.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">03</span>
+      <div class="step-icon">🚀</div>
+      <h3>Track & celebrate</h3>
+      <p>Watch your progress on a real-time dashboard. Hit milestones, earn certificates, and share your wins.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">04</span>
+      <div class="step-icon">🤝</div>
+      <h3>Stay supported</h3>
+      <p>Your tutor, community forums, and 24/7 AI study assistant are always a click away.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <p class="section-label">What we teach</p>
+  <h2 class="section-title">Find the course that clicks</h2>
+  <div class="courses-grid">
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:#d4f0ec;">🔬</div>
+      <div class="course-body">
+        <span class="course-tag tag-science">Science</span>
+        <h3>AP Biology Mastery</h3>
+        <p>Deep-dive into cells, genetics, evolution, and ecology with interactive labs.</p>
+        <div class="course-meta">
+          <span>⏱ 48 hrs · 12 weeks</span>
+          <a href="#" class="enroll">Enroll</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:#ffecd0;">📐</div>
+      <div class="course-body">
+        <span class="course-tag tag-math">Mathematics</span>
+        <h3>Calculus Unlocked</h3>
+        <p>From limits to integrals — master calculus with visual proofs and step-by-step problem sets.</p>
+        <div class="course-meta">
+          <span>⏱ 60 hrs · 15 weeks</span>
+          <a href="#" class="enroll">Enroll</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:#d4e8ff;">💻</div>
+      <div class="course-body">
+        <span class="course-tag tag-tech">Technology</span>
+        <h3>Python for Beginners</h3>
+        <p>Build real projects from day one. No prior experience needed — just curiosity.</p>
+        <div class="course-meta">
+          <span>⏱ 36 hrs · 10 weeks</span>
+          <a href="#" class="enroll">Enroll</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:#e8d8f5;">✍️</div>
+      <div class="course-body">
+        <span class="course-tag tag-arts">Writing</span>
+        <h3>Essay Writing Essentials</h3>
+        <p>Craft compelling arguments, nail your thesis, and write essays that stand out.</p>
+        <div class="course-meta">
+          <span>⏱ 24 hrs · 8 weeks</span>
+          <a href="#" class="enroll">Enroll</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:#ffd8e0;">🌍</div>
+      <div class="course-body">
+        <span class="course-tag tag-lang">Languages</span>
+        <h3>Spanish A1 → B2</h3>
+        <p>Go from hello to fluent with immersive conversation, culture, and grammar practice.</p>
+        <div class="course-meta">
+          <span>⏱ 80 hrs · 20 weeks</span>
+          <a href="#" class="enroll">Enroll</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-thumb" style="background:#d8f5d4;">📈</div>
+      <div class="course-body">
+        <span class="course-tag tag-biz">Business</span>
+        <h3>Intro to Economics</h3>
+        <p>Understand markets, supply and demand, and how the world's economy works.</p>
+        <div class="course-meta">
+          <span>⏱ 30 hrs · 10 weeks</span>
+          <a href="#" class="enroll">Enroll</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <p class="section-label">Student stories</p>
+  <h2 class="section-title">Real results, real students</h2>
+  <div class="testimonials-grid">
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I went from failing Calculus to scoring a 5 on the AP exam. My tutor explained things in a way no classroom ever did."</blockquote>
+      <div class="testi-author">
+        <div class="avatar">🎓</div>
+        <div><strong>Maya R.</strong><span>Grade 12, Boston MA</span></div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"The Python course gave me the confidence to build my own app. I landed a summer internship because of that project."</blockquote>
+      <div class="testi-author">
+        <div class="avatar">💻</div>
+        <div><strong>Ethan K.</strong><span>Sophomore, UCLA</span></div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Luminary's essay coaching helped me polish my college applications. I got into my top three schools!"</blockquote>
+      <div class="testi-author">
+        <div class="avatar">📝</div>
+        <div><strong>Priya S.</strong><span>College freshman, Chicago IL</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-title">Simple, student-friendly plans</h2>
+  <div class="pricing-grid">
+
+    <div class="price-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-desc muted-text">For the curious explorer</div>
+      <div class="plan-price"><sup>$</sup>0</div>
+      <div class="plan-period muted-text">Free forever</div>
+      <ul class="plan-features">
+        <li>2 free course previews</li>
+        <li>Community forum access</li>
+        <li>Progress dashboard</li>
+        <li>Mobile app included</li>
+      </ul>
+      <a href="#" class="btn-plan btn-plan-light">Start free</a>
+    </div>
+
+    <div class="price-card featured">
+      <div class="plan-name">Scholar</div>
+      <div class="plan-desc muted-text">Most popular for high schoolers</div>
+      <div class="plan-price"><sup>$</sup>29</div>
+      <div class="plan-period muted-text">per month, billed annually</div>
+      <ul class="plan-features">
+        <li>All courses, unlimited access</li>
+        <li>4 live tutor sessions/month</li>
+        <li>AI study assistant</li>
+        <li>Downloadable materials</li>
+        <li>Certificates of completion</li>
+      </ul>
+      <a href="#" class="btn-plan btn-plan-dark">Get Scholar</a>
+    </div>
+
+    <div class="price-card">
+      <div class="plan-name">Elite</div>
+      <div class="plan-desc muted-text">For serious academic achievers</div>
+      <div class="plan-price"><sup>$</sup>79</div>
+      <div class="plan-period muted-text">per month, billed annually</div>
+      <ul class="plan-features">
+        <li>Everything in Scholar</li>
+        <li>Unlimited tutor sessions</li>
+        <li>Dedicated success coach</li>
+        <li>SAT / ACT prep included</li>
+        <li>Priority support 24/7</li>
+      </ul>
+      <a href="#" class="btn-plan btn-plan-light">Go Elite</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div>
+    <h2>Ready to make this your best semester yet?</h2>
+    <p>Join 40,000+ students already learning on Luminary.</p>
+  </div>
+  <a href="#" class="btn-cta">Start for free →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">Lumin<span>ary</span></a>
+      <p>Empowering the next generation of students with world-class education tools and human-led tutoring.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Live tutoring</a></li>
+        <li><a href="#">AI Study Assistant</a></li>
+        <li><a href="#">Mobile app</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help center</a></li>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="#">Privacy policy</a></li>
+        <li><a href="#">Terms of service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Luminary Education Inc. All rights reserved.</span>
+    <span>Made with ♥ for students everywhere</span>
+  </div>
+</footer>
+
+</body>
+</html>
